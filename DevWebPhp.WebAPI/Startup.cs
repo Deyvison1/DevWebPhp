@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using DevWebPhp.Repositorio;
 using DevWebPhp.Repositorio.data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +32,8 @@ namespace DevWebPhp.WebAPI
             services.AddDbContext<DevWebPhpContext>(x => x.UseSqlite(
                 Configuration.GetConnectionString("Conexao")
             ));
+            services.AddScoped<IDevWebPhpRepositorio, DevWebPhpRepositorio>();
+            services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -45,8 +49,8 @@ namespace DevWebPhp.WebAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

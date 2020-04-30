@@ -12,6 +12,7 @@ namespace DevWebPhp.Repositorio
         public DevWebPhpRepositorio(DevWebPhpContext context) 
         {
             _context = context;
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
         // Geral
         public void Add<T>(T entity) where T : class
