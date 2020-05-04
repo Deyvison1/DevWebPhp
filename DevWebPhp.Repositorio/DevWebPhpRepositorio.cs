@@ -48,19 +48,20 @@ namespace DevWebPhp.Repositorio
 
         public async Task<Request[]> GetAllRequestByNomeOrEmailOrTelefoneOrDescricao(string buscar)
         {
-            IQueryable<Request> query = _context.Requests.Where(
-                resultBusca => resultBusca.Nome.ToLower() == buscar || resultBusca.NomeCompleto.ToLower() == buscar ||
-                resultBusca.Email == buscar || resultBusca.Telefone == buscar ||
-                resultBusca.Descricao == buscar
-            );
-            return await query.ToArrayAsync();
-            /*
             var result = _context.Requests.Where(
-                resultBusca => resultBusca.Nome == buscar || resultBusca.NomeCompleto == buscar ||
-                resultBusca.Email == buscar || resultBusca.Telefone == buscar ||
-                resultBusca.Descricao == buscar
+                x => x.Nome.ToLower().Contains(buscar.ToLower()) || x.NomeCompleto.ToLower().Contains(buscar.ToLower()) ||
+                x.Email.ToLower().Contains(buscar.ToLower()) || x.Telefone.ToLower().Contains(buscar.ToLower()) ||
+                x.Descricao.ToLower().Contains(buscar.ToLower())
             );
             return await result.ToArrayAsync();
+            /*
+            IQueryable<Request> query = _context.Requests.Where(
+                resultBusca => resultBusca.Nome.ToLower().Contains(buscar.ToLower()) || resultBusca.NomeCompleto.ToLower().
+                    Contains(buscar.ToLower()) ||
+                resultBusca.Email.ToLower().Contains(buscar.ToLower()) || resultBusca.Telefone.ToLower().Contains(buscar.ToLower()) 
+                || resultBusca.Descricao.ToLower().Contains(buscar.ToLower())
+            );
+            return await query.ToArrayAsync();
             */
         }
 

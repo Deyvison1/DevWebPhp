@@ -20,7 +20,7 @@ export class RequestComponent implements OnInit {
   }
   set filtroLista(value: string) {
     this._filtroLista = value;
-    this.requestFiltradas = this.filtroLista ? this.filtrarLista(this.filtroLista) : this.requests;
+    this.requestFiltradas = this._filtroLista ? this.filtrarLista(this.filtroLista) : this.requests;
   }
 
   constructor(
