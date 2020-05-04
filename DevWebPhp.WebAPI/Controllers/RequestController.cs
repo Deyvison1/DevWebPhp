@@ -23,6 +23,7 @@ namespace DevWebPhp.WebAPI.Controllers
             _mapper = mapper;
 
         }
+        // Lista Todos
         [HttpGet]
         public async Task<IActionResult> GetRequest() {
             try {
@@ -34,6 +35,7 @@ namespace DevWebPhp.WebAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $" Erro n Lista todosRequest. CODE: {e.Message}");
             }
         }
+        // Lista por Id
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRequestById(int id) {
             try {
@@ -41,6 +43,17 @@ namespace DevWebPhp.WebAPI.Controllers
                 var result = _mapper.Map<RequestDto>(request);
                 return Ok(result);
 
+            } catch(System.Exception e) {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $" Erro n Lista todosRequest. CODE: {e.Message}");
+            }
+        }
+        // Listar por Nome ou Email ou Telefone ou Descricao
+        [HttpGet("GetBuscar/{busca}")]
+        public async Task<IActionResult> GetAllRequestByNomeOrEmailOrTelefoneOrDescricao(string busca) {
+            try {
+                var buscaRquest = await _repo.GetAllRequestByNomeOrEmailOrTelefoneOrDescricao(busca);
+                var result = _mapper.Map<RequestDto[]>(buscaRquest);
+                return Ok(result);
             } catch(System.Exception e) {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $" Erro n Lista todosRequest. CODE: {e.Message}");
             }
