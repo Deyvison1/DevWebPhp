@@ -18,4 +18,7 @@ export class RequestService {
   getAllRequest(): Observable<Request[]> {
     return this.http.get<Request[]>(this.baseURL);
   }
+  GetAllRequestByNomeOrEmailOrTelefoneOrDescricao(buscar: string): Observable<Request[]> {
+    return this.http.get<Request[]>(`${this.baseURL}/GetBuscar/${buscar}`);
+  }
 }

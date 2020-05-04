@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { RequestComponent } from './request/request.component';
 import { HttpClientModule } from '@angular/common/http';
 
+// Forms
+import { FormsModule } from '@angular/forms';
 
 
 // NGX Bootstrap
@@ -29,7 +31,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
