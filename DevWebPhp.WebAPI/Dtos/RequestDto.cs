@@ -16,6 +16,8 @@ namespace DevWebPhp.WebAPI.Dtos
         public string Email                    { get; set; }
         [Phone]
         public string Telefone                 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? DataSolicitacao        { get; set; }
         public string Descricao                { get; set; }
 
     }

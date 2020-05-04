@@ -21,6 +21,16 @@ export class RequestComponent implements OnInit {
     this.getRequest();
   }
 
+  detalhes(detalhes: any) {
+    detalhes.show();
+  }
+
+  editar(editar: any) {
+    editar.show();
+  }
+
+  salvarAlteracao() {}
+
   getRequest() {
     return this.requestService.getAllRequest().subscribe(
       (_request: Request[]) => {

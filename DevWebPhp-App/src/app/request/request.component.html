@@ -1,6 +1,6 @@
 <div class="container">
-  <table class="table table-striped table-hover table-bordered">
-    <thead>
+  <table class="table  table-hover table-bordered">
+    <thead class="thead-light">
       <tr>
         <th>Nome</th>
         <th>Nome Completo</th>
@@ -17,9 +17,9 @@
         <td>{{request.telefone}}</td>
         <td>
           <div class="btn-group">
-          <button class="btn btn-secondary btn-sm" tooltip="Editar">
+          <button class="btn btn-secondary btn-sm" (click)="editar(templateEdit)" tooltip="Editar">
             <i class="fa fa-edit"></i>&nbsp;  Editar</button>
-            <button class="btn btn-info btn-sm" tooltip="Detalhes">
+            <button class="btn btn-info btn-sm" (click)="detalhes(templateDetalhes)" tooltip="Detalhes">
               <i class="fas fa-info-circle"></i></button>
               <button class="btn btn-danger btn-sm" tooltip="Deletar">
                 <i class="fa fa-eraser"></i>&nbsp;  Deletar</button>
@@ -28,4 +28,54 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div bsModal #templateDetalhes="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Large modal</h4>
+        <button type="button" class="close pull-right" (click)="templateDetalhes.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Detalhes
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="templateDetalhes.hide()">
+          Fechar
+        </button>
+        <button class="btn btn-primary ml-auto" (click)="salvarAlteracao()" >
+          Salvar Alterações
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #templateEdit="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Large modal</h4>
+        <button type="button" class="close pull-right" (click)="templateEdit.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Editar
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="templateEdit.hide()">
+          Fechar
+        </button>
+        <button class="btn btn-primary ml-auto" (click)="salvarAlteracao()" >
+          Salvar Alterações
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
