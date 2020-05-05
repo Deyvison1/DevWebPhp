@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../_services/request.service';
 import { Request } from '../_models/Request';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-request',
@@ -14,6 +15,7 @@ export class RequestComponent implements OnInit {
   requests: Request[];
   _filtroLista = '';
   requestFiltradas: Request[] = [];
+  form: FormGroup;
 
   get filtroLista(): string {
     return this._filtroLista;
@@ -24,11 +26,13 @@ export class RequestComponent implements OnInit {
   }
 
   constructor(
-    private requestService: RequestService
+    private requestService: RequestService,
+    private fb: FormBuilder
   ) { }
 
 
   ngOnInit() {
+    this.validacao();
     this.getRequest();
   }
 
@@ -52,7 +56,23 @@ export class RequestComponent implements OnInit {
     editar.show();
   }
 
-  salvarAlteracao() {}
+  deletar(templateDelete: any) {
+    templateDelete.show();
+  }
+
+  salvarAlteracao() { }
+
+  validacao() {
+    this.form = this.fb.group({
+      nome: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(130)]],
+      nomeCompleto: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(170)]],
+      email: ['', [Validators.email, Validators.required]],
+      dataSolicitacao: [''],
+      telefone: ['', Validators.required],
+      senha: ['', [Validators.minLength(4), Validators.maxLength(12)]],
+      descricao: ['']
+    });
+  }
 
   getRequest() {
     return this.requestService.getAllRequest().subscribe(

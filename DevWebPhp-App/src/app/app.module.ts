@@ -7,7 +7,7 @@ import { RequestComponent } from './request/request.component';
 import { HttpClientModule } from '@angular/common/http';
 
 // Forms
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 // NGX Bootstrap
@@ -32,7 +32,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

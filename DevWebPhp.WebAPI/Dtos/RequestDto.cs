@@ -12,9 +12,11 @@ namespace DevWebPhp.WebAPI.Dtos
         [Required(ErrorMessage = "{0} é obrigatório!!")]
         [StringLength(170, MinimumLength = 6, ErrorMessage = "{0} deve ter entre 6 a 170 caracteres")]
         public string NomeCompleto             { get; set; }
+        [Required(ErrorMessage = "{0} é obrigatório!!")]
         [EmailAddress]
         public string Email                    { get; set; }
         [Phone]
+        [Required(ErrorMessage = "{0} é obrigatório!!")]
         public string Telefone                 { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataSolicitacao        { get; set; }

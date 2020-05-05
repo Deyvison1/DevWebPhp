@@ -29,7 +29,7 @@
             <i class="fa fa-edit"></i>&nbsp;  Editar</button>
             <button class="btn btn-info btn-sm" (click)="detalhes(templateDetalhes)" tooltip="Detalhes">
               <i class="fas fa-info-circle"></i></button>
-              <button class="btn btn-danger btn-sm" tooltip="Deletar">
+              <button class="btn btn-danger btn-sm" tooltip="Deletar" (click)="deletar(templateDelete)">
                 <i class="fa fa-eraser"></i>&nbsp;  Deletar</button>
           </div>
         </td>
@@ -38,12 +38,13 @@
   </table>
 </div>
 
+<!-- Modal Detalhes -->
 <div bsModal #templateDetalhes="bs-modal" class="modal fade" tabindex="-1"
      role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Large modal</h4>
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Detalhes</h4>
         <button type="button" class="close pull-right" (click)="templateDetalhes.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -63,27 +64,148 @@
   </div>
 </div>
 
+<!-- Modal Editar -->
+
 <div bsModal #templateEdit="bs-modal" class="modal fade" tabindex="-1"
      role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Large modal</h4>
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar</h4>
         <button type="button" class="close pull-right" (click)="templateEdit.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Editar
+        
+        <form [formGroup]="form">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Nome</label>
+              <input autofocus type="text" 
+              [ngClass]="{'is-invalid': form.get('nome').errors && form.get('nome').touched}"
+              class="form-control" formControlName="nome" placeholder="Nome">
+              <div *ngIf="form.get('nome').hasError('required') && form.get('nome').touched" 
+              class="invalid-feedback">
+                Campo Obrigatório
+              </div>
+              <div *ngIf="form.get('nome').hasError('minlength') && form.get('nome').touched" 
+              class="invalid-feedback">
+                Campo deve ter entre 2 a 130 caracteres
+              </div>
+              <div *ngIf="form.get('nome').hasError('maxlength') && form.get('nome').touched" 
+              class="invalid-feedback">
+                Campo deve ter entre 2 a 130 caracteres
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Nome Completo</label>
+              <input type="text" 
+              [ngClass]="{'is-invalid': form.get('nomeCompleto').errors && form.get('nomeCompleto').touched}"
+              class="form-control" formControlName="nomeCompleto" placeholder="Nome Completo">
+              <div *ngIf="form.get('nomeCompleto').hasError('required') && form.get('nomeCompleto').touched" 
+              class="invalid-feedback">
+                Campo Obrigatório
+              </div>
+              <div *ngIf="form.get('nomeCompleto').hasError('minlength') && form.get('nomeCompleto').touched" 
+              class="invalid-feedback">
+                Campo deve ter entre 6 a 170 caracteres
+              </div>
+              <div *ngIf="form.get('nomeCompleto').hasError('maxlength') && form.get('nomeCompleto').touched" 
+              class="invalid-feedback">
+                Campo deve ter entre 6 a 170 caracteres
+              </div>
+            </div>
+          </div>  
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>Data Solicitacao</label>
+              <input type="date" class="form-control" formControlName="dataSolicitacao">
+            </div>
+            <div class="form-group col-md-8">
+              <label>E-mail</label>
+              <input type="text" 
+              [ngClass]="{'is-invalid': form.get('email').errors && form.get('email').touched}"
+              class="form-control" formControlName="email" placeholder="E-mail">
+              <div *ngIf="form.get('email').hasError('required') && form.get('email').touched"
+              class="invalid-feedback">
+                Campo Obrigatório
+              </div>
+              <div *ngIf="form.get('email').hasError('email') && form.get('email').touched" 
+              class="invalid-feedback">
+                E-mail deve ser valido.
+              </div>
+            </div>
+          </div>  
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Telefone</label>
+              <input type="text" 
+              [ngClass]="{'is-invalid': form.get('telefone').errors && form.get('telefone').touched}"
+              class="form-control" formControlName="telefone" placeholder="Telefone">
+              <div *ngIf="form.get('telefone').hasError('required') && form.get('telefone').touched" 
+              class="invalid-feedback">
+                Campo Obrigatório
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Senha</label>
+              <input type="password" 
+              [ngClass]="{'is-invalid': form.get('senha').errors && form.get('senha').touched}"
+              class="form-control" formControlName="senha" placeholder="Senha">
+              <div *ngIf="form.get('senha').hasError('minlength') && form.get('senha').touched"
+              class="invalid-feedback">
+                Senha deve ter entre 4 a 12 caracteres!
+              </div>
+              <div *ngIf="form.get('senha').hasError('maxlength') && form.get('senha').touched"
+              class="invalid-feedback">
+                Senha deve ter entre 4 a 12 caracteres!
+              </div>
+            </div>
+          </div>  
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Descrição</label>
+              <textarea class="form-control" formControlName="descricao" placeholder="Descrição"></textarea>
+            </div>
+          </div> 
+        </form>
+
       </div>
       <div class="modal-footer d-flex">
         <button class="btn btn-secondary" (click)="templateEdit.hide()">
           Fechar
         </button>
-        <button class="btn btn-primary ml-auto" (click)="salvarAlteracao()" >
+        <button class="btn btn-primary ml-auto" [disabled]="!form.valid" (click)="salvarAlteracao()" >
           Salvar Alterações
         </button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Modal Confirmar Delete -->
+<div bsModal #templateDelete="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name2">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name2" class="modal-title pull-left">Deletar</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="templateDelete.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja excluir essa solicitação?
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="templateDelete. hide()">
+          Não
+        </button>
+        <button class="btn btn-success ml-auto" (click)="salvarAlteracao()" >
+          Sim
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
