@@ -21,4 +21,16 @@ export class RequestService {
   GetAllRequestByNomeOrEmailOrTelefoneOrDescricao(buscar: string): Observable<Request[]> {
     return this.http.get<Request[]>(`${this.baseURL}/GetBuscar/${buscar}`);
   }
+  // INSERIR
+  post(request: Request) {
+    return this.http.post(this.baseURL, request);
+  }
+  // EDITAR
+  put(request: Request) {
+    return this.http.put(`${this.baseURL}/${request.id}`, request);
+  }
+  // DELETAR
+  deletarRequest(id: number) {
+    return this.http.delete(`${this.baseURL}/${id}`);
+  }
 }

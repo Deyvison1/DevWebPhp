@@ -95,7 +95,7 @@ namespace DevWebPhp.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRequest (int id) {
             try {
-                var result = _repo.GetRequestById(id);
+                var result = await _repo.GetRequestById(id);
                 if (result == null) return NotFound();
 
                 _repo.Delete(result);

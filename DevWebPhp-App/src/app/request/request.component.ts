@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../_services/request.service';
 import { Request } from '../_models/Request';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-request',
@@ -27,7 +28,8 @@ export class RequestComponent implements OnInit {
 
   constructor(
     private requestService: RequestService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) { }
 
 
@@ -48,19 +50,72 @@ export class RequestComponent implements OnInit {
     return [];
   }
 
-  detalhes(detalhes: any) {
+  detalhes(detalhes: any, request: Request) {
     detalhes.show();
+    this.request = request;
+    this.form.patchValue(request);
   }
 
-  editar(editar: any) {
-    editar.show();
+  inserir(inserir: any) {
+    this.form.reset();
+    inserir.show();
   }
 
-  deletar(templateDelete: any) {
-    templateDelete.show();
+  editar(templateEdit: any, request: Request) {
+    templateEdit.show();
+    this.request = request;
+    this.form.patchValue(request);
   }
 
-  salvarAlteracao() { }
+  excluirRequest(request: Request, templateDelete: any) {
+    templateDelete.show(templateDelete);
+    this.request = request;
+  }
+  confirmeDeletar(templateConfirmeDeletar: any) {
+    this.requestService.deletarRequest(this.request.id).subscribe(
+      (data) => {
+        templateConfirmeDeletar.hide();
+        this.getRequest();
+        this.toastr.success('Deletado com Sucesso!!');
+        console.log(data);
+      }, error => {
+        this.toastr.error(error);
+        console.log(error);
+      }
+    );
+  }
+
+  salvarAlteracao(template: any) {
+    if (this.form.valid) {
+      if (!this.request.id) {
+        this.request = Object.assign({}, this.form.value);
+
+        this.requestService.post(this.request).subscribe(
+          (newRequest: Request) => {
+            console.log(newRequest);
+            template.hide();
+            this.getRequest();
+            this.toastr.success('Solicitação Cadastrada com Sucesso!!');
+          }, error => {
+            this.toastr.error(error);
+            console.log(error);
+          }
+        );
+      } else {
+        this.request = Object.assign({ id: this.request.id }, this.form.value);
+        this.requestService.put(this.request).subscribe(
+          (editRequest: Request) => {
+            template.hide();
+            this.getRequest();
+            this.toastr.success('Atualizado com Sucesso!!');
+          }, error => {
+            this.toastr.error(error);
+            console.log(error);
+          }
+        );
+      }
+    }
+  }
 
   validacao() {
     this.form = this.fb.group({
@@ -70,7 +125,7 @@ export class RequestComponent implements OnInit {
       dataSolicitacao: [''],
       telefone: ['', Validators.required],
       senha: ['', [Validators.minLength(4), Validators.maxLength(12)]],
-      descricao: ['']
+      descricao: ['', Validators.required]
     });
   }
 
