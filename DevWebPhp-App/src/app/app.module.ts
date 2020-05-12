@@ -18,6 +18,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserComponent } from './user/user.component';
+import { TituloComponent } from './shared/titulo/titulo.component';
 
 
 
@@ -29,7 +31,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     RequestComponent,
-    NavComponent
+    NavComponent,
+    UserComponent,
+    TituloComponent
   ],
   imports: [
     BrowserModule,

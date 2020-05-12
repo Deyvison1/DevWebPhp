@@ -12,7 +12,16 @@ namespace DevWebPhp.Repositorio
          // Requests
          // GetAll => Todas solicitações
          Task<Request[]> GetAllRequests();
+         // GetPesquisaPerso
          Task<Request[]> GetAllRequestByNomeOrEmailOrTelefoneOrDescricao(string buscar);
+         // GetPesquisaPorId
          Task<Request> GetRequestById(int id);
+         
+         // Users
+         // GetUsers => Todos usuarios
+         Task<User[]> GetAllUsers();
+         // GetPesquisaPorId
+         Task<User> GetUserById(int id);
+         Task<User[]> GetUserByNomeOrEmailOrTelefoneOrNivelUser(string buscar);
     }
 }

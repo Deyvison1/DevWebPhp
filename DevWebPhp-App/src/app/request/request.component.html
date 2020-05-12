@@ -1,8 +1,9 @@
+<app-titulo [titulo]="titulo"></app-titulo>
 <div class="d-flex">
   <div class="form-inline mr-auto">
     <div class="form-group mb-2">
-      <input placeholder="Pesquisar" type="search" class="form-control mr-2 text-center"
-         [(ngModel)]="filtroLista"/><i class="fas fa-search"></i>
+      <input placeholder="Pesquisar" type="search" class="form-control mr-2 text-center" [(ngModel)]="filtroLista" /><i
+        class="fas fa-search"></i>
     </div>
   </div>
   <div>
@@ -22,7 +23,7 @@
         <th>Ações</th>
       </tr>
     </thead>
-    <tbody >
+    <tbody>
       <tr *ngFor="let request of requestFiltradas">
         <td>{{request.nome}}</td>
         <td>{{request.nomeCompleto}}</td>
@@ -30,12 +31,12 @@
         <td>{{request.telefone | mask: '(000) 00000-0000'}}</td>
         <td>
           <div class="btn-group">
-          <button class="btn btn-secondary btn-sm" (click)="editar(templateEdit, request)" tooltip="Editar">
-            <i class="fa fa-edit"></i>&nbsp;  Editar</button>
+            <button class="btn btn-secondary btn-sm" (click)="editar(templateEdit, request)" tooltip="Editar">
+              <i class="fa fa-edit"></i>&nbsp; Editar</button>
             <button class="btn btn-info btn-sm" (click)="detalhes(templateDetalhes, request)" tooltip="Detalhes">
               <i class="fas fa-info-circle"></i></button>
-              <button class="btn btn-danger btn-sm" tooltip="Deletar" (click)="excluirRequest(request, confirmeDelete)">
-                <i class="fa fa-eraser"></i>&nbsp;  Deletar</button>
+            <button class="btn btn-danger btn-sm" tooltip="Deletar" (click)="excluirRequest(request, confirmeDelete)">
+              <i class="fa fa-eraser"></i>&nbsp; Deletar</button>
           </div>
         </td>
       </tr>
@@ -45,57 +46,54 @@
 
 <!-- Modal Detalhes -->
 
-<div bsModal #templateDetalhes="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-sizes-name1">
+<div bsModal #templateDetalhes="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar</h4>
-        <button type="button" class="close pull-right" (click)="templateEdit.hide()" aria-label="Close">
+        <button type="button" class="close pull-right" (click)="templateDetalhes.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        
+
         <form [formGroup]="form">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Nome</label>
-              <input autofocus type="text" 
-              [ngClass]="{'is-invalid': form.get('nome').errors && form.get('nome').touched}"
-              class="form-control" formControlName="nome" placeholder="Nome">
-              <div *ngIf="form.get('nome').hasError('required') && form.get('nome').touched" 
-              class="invalid-feedback">
+              <input autofocus type="text"
+                [ngClass]="{'is-invalid': form.get('nome').errors && form.get('nome').touched}" class="form-control"
+                formControlName="nome" placeholder="Nome">
+              <div *ngIf="form.get('nome').hasError('required') && form.get('nome').touched" class="invalid-feedback">
                 Campo Obrigatório
               </div>
-              <div *ngIf="form.get('nome').hasError('minlength') && form.get('nome').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nome').hasError('minlength') && form.get('nome').touched" class="invalid-feedback">
                 Campo deve ter entre 2 a 130 caracteres
               </div>
-              <div *ngIf="form.get('nome').hasError('maxlength') && form.get('nome').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nome').hasError('maxlength') && form.get('nome').touched" class="invalid-feedback">
                 Campo deve ter entre 2 a 130 caracteres
               </div>
             </div>
             <div class="form-group col-md-6">
               <label>Nome Completo</label>
-              <input type="text" 
-              [ngClass]="{'is-invalid': form.get('nomeCompleto').errors && form.get('nomeCompleto').touched}"
-              class="form-control" formControlName="nomeCompleto" placeholder="Nome Completo">
-              <div *ngIf="form.get('nomeCompleto').hasError('required') && form.get('nomeCompleto').touched" 
-              class="invalid-feedback">
+              <input type="text"
+                [ngClass]="{'is-invalid': form.get('nomeCompleto').errors && form.get('nomeCompleto').touched}"
+                class="form-control" formControlName="nomeCompleto" placeholder="Nome Completo">
+              <div *ngIf="form.get('nomeCompleto').hasError('required') && form.get('nomeCompleto').touched"
+                class="invalid-feedback">
                 Campo Obrigatório
               </div>
-              <div *ngIf="form.get('nomeCompleto').hasError('minlength') && form.get('nomeCompleto').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nomeCompleto').hasError('minlength') && form.get('nomeCompleto').touched"
+                class="invalid-feedback">
                 Campo deve ter entre 6 a 170 caracteres
               </div>
-              <div *ngIf="form.get('nomeCompleto').hasError('maxlength') && form.get('nomeCompleto').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nomeCompleto').hasError('maxlength') && form.get('nomeCompleto').touched"
+                class="invalid-feedback">
                 Campo deve ter entre 6 a 170 caracteres
               </div>
             </div>
-          </div>  
+          </div>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Data Solicitacao</label>
@@ -103,56 +101,52 @@
             </div>
             <div class="form-group col-md-8">
               <label>E-mail</label>
-              <input type="text" 
-              [ngClass]="{'is-invalid': form.get('email').errors && form.get('email').touched}"
-              class="form-control" formControlName="email" placeholder="E-mail">
-              <div *ngIf="form.get('email').hasError('required') && form.get('email').touched"
-              class="invalid-feedback">
+              <input type="text" [ngClass]="{'is-invalid': form.get('email').errors && form.get('email').touched}"
+                class="form-control" formControlName="email" placeholder="E-mail">
+              <div *ngIf="form.get('email').hasError('required') && form.get('email').touched" class="invalid-feedback">
                 Campo Obrigatório
               </div>
-              <div *ngIf="form.get('email').hasError('email') && form.get('email').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('email').hasError('email') && form.get('email').touched" class="invalid-feedback">
                 E-mail deve ser valido.
               </div>
             </div>
-          </div>  
+          </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Telefone</label>
               <input type="text" mask="(000) 00000-0000"
-              [ngClass]="{'is-invalid': form.get('telefone').errors && form.get('telefone').touched}"
-              class="form-control" formControlName="telefone" placeholder="(000) 00000-0000">
-              <div *ngIf="form.get('telefone').hasError('required') && form.get('telefone').touched" 
-              class="invalid-feedback">
+                [ngClass]="{'is-invalid': form.get('telefone').errors && form.get('telefone').touched}"
+                class="form-control" formControlName="telefone" placeholder="(000) 00000-0000">
+              <div *ngIf="form.get('telefone').hasError('required') && form.get('telefone').touched"
+                class="invalid-feedback">
                 Campo Obrigatório
               </div>
             </div>
             <div class="form-group col-md-6">
               <label>Senha</label>
-              <input type="password" 
-              [ngClass]="{'is-invalid': form.get('senha').errors && form.get('senha').touched}"
-              class="form-control" formControlName="senha" placeholder="Senha">
+              <input type="password" [ngClass]="{'is-invalid': form.get('senha').errors && form.get('senha').touched}"
+                class="form-control" formControlName="senha" placeholder="Senha">
               <div *ngIf="form.get('senha').hasError('minlength') && form.get('senha').touched"
-              class="invalid-feedback">
+                class="invalid-feedback">
                 Senha deve ter entre 4 a 12 caracteres!
               </div>
               <div *ngIf="form.get('senha').hasError('maxlength') && form.get('senha').touched"
-              class="invalid-feedback">
+                class="invalid-feedback">
                 Senha deve ter entre 4 a 12 caracteres!
               </div>
             </div>
-          </div>  
+          </div>
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Descrição</label>
               <textarea [ngClass]="{'is-invalid': form.get('descricao').errors && form.get('descricao').touched}"
-              class="form-control" formControlName="descricao" placeholder="Descrição"></textarea>
-              <div *ngIf="form.get('descricao').hasError('required') && form.get('descricao').touched" 
-              class="invalid-feedback">
+                class="form-control" formControlName="descricao" placeholder="Descrição"></textarea>
+              <div *ngIf="form.get('descricao').hasError('required') && form.get('descricao').touched"
+                class="invalid-feedback">
                 Campo Obrigatório
               </div>
             </div>
-          </div> 
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex">
@@ -166,8 +160,8 @@
 
 <!-- Modal Editar -->
 
-<div bsModal #templateEdit="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-sizes-name1">
+<div bsModal #templateEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -177,46 +171,43 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
         <form [formGroup]="form">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Nome</label>
-              <input autofocus type="text" 
-              [ngClass]="{'is-invalid': form.get('nome').errors && form.get('nome').touched}"
-              class="form-control" formControlName="nome" placeholder="Nome">
-              <div *ngIf="form.get('nome').hasError('required') && form.get('nome').touched" 
-              class="invalid-feedback">
+              <input autofocus type="text"
+                [ngClass]="{'is-invalid': form.get('nome').errors && form.get('nome').touched}" class="form-control"
+                formControlName="nome" placeholder="Nome">
+              <div *ngIf="form.get('nome').hasError('required') && form.get('nome').touched" class="invalid-feedback">
                 Campo Obrigatório
               </div>
-              <div *ngIf="form.get('nome').hasError('minlength') && form.get('nome').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nome').hasError('minlength') && form.get('nome').touched" class="invalid-feedback">
                 Campo deve ter entre 2 a 130 caracteres
               </div>
-              <div *ngIf="form.get('nome').hasError('maxlength') && form.get('nome').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nome').hasError('maxlength') && form.get('nome').touched" class="invalid-feedback">
                 Campo deve ter entre 2 a 130 caracteres
               </div>
             </div>
             <div class="form-group col-md-6">
               <label>Nome Completo</label>
-              <input type="text" 
-              [ngClass]="{'is-invalid': form.get('nomeCompleto').errors && form.get('nomeCompleto').touched}"
-              class="form-control" formControlName="nomeCompleto" placeholder="Nome Completo">
-              <div *ngIf="form.get('nomeCompleto').hasError('required') && form.get('nomeCompleto').touched" 
-              class="invalid-feedback">
+              <input type="text"
+                [ngClass]="{'is-invalid': form.get('nomeCompleto').errors && form.get('nomeCompleto').touched}"
+                class="form-control" formControlName="nomeCompleto" placeholder="Nome Completo">
+              <div *ngIf="form.get('nomeCompleto').hasError('required') && form.get('nomeCompleto').touched"
+                class="invalid-feedback">
                 Campo Obrigatório
               </div>
-              <div *ngIf="form.get('nomeCompleto').hasError('minlength') && form.get('nomeCompleto').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nomeCompleto').hasError('minlength') && form.get('nomeCompleto').touched"
+                class="invalid-feedback">
                 Campo deve ter entre 6 a 170 caracteres
               </div>
-              <div *ngIf="form.get('nomeCompleto').hasError('maxlength') && form.get('nomeCompleto').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nomeCompleto').hasError('maxlength') && form.get('nomeCompleto').touched"
+                class="invalid-feedback">
                 Campo deve ter entre 6 a 170 caracteres
               </div>
             </div>
-          </div>  
+          </div>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Data Solicitacao</label>
@@ -224,56 +215,52 @@
             </div>
             <div class="form-group col-md-8">
               <label>E-mail</label>
-              <input type="text" 
-              [ngClass]="{'is-invalid': form.get('email').errors && form.get('email').touched}"
-              class="form-control" formControlName="email" placeholder="E-mail">
-              <div *ngIf="form.get('email').hasError('required') && form.get('email').touched"
-              class="invalid-feedback">
+              <input type="text" [ngClass]="{'is-invalid': form.get('email').errors && form.get('email').touched}"
+                class="form-control" formControlName="email" placeholder="E-mail">
+              <div *ngIf="form.get('email').hasError('required') && form.get('email').touched" class="invalid-feedback">
                 Campo Obrigatório
               </div>
-              <div *ngIf="form.get('email').hasError('email') && form.get('email').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('email').hasError('email') && form.get('email').touched" class="invalid-feedback">
                 E-mail deve ser valido.
               </div>
             </div>
-          </div>  
+          </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Telefone</label>
               <input type="text" mask="(000) 00000-0000"
-              [ngClass]="{'is-invalid': form.get('telefone').errors && form.get('telefone').touched}"
-              class="form-control" formControlName="telefone" placeholder="(000) 00000-0000">
-              <div *ngIf="form.get('telefone').hasError('required') && form.get('telefone').touched" 
-              class="invalid-feedback">
+                [ngClass]="{'is-invalid': form.get('telefone').errors && form.get('telefone').touched}"
+                class="form-control" formControlName="telefone" placeholder="(000) 00000-0000">
+              <div *ngIf="form.get('telefone').hasError('required') && form.get('telefone').touched"
+                class="invalid-feedback">
                 Campo Obrigatório
               </div>
             </div>
             <div class="form-group col-md-6">
               <label>Senha</label>
-              <input type="password" 
-              [ngClass]="{'is-invalid': form.get('senha').errors && form.get('senha').touched}"
-              class="form-control" formControlName="senha" placeholder="Senha">
+              <input type="password" [ngClass]="{'is-invalid': form.get('senha').errors && form.get('senha').touched}"
+                class="form-control" formControlName="senha" placeholder="Senha">
               <div *ngIf="form.get('senha').hasError('minlength') && form.get('senha').touched"
-              class="invalid-feedback">
+                class="invalid-feedback">
                 Senha deve ter entre 4 a 12 caracteres!
               </div>
               <div *ngIf="form.get('senha').hasError('maxlength') && form.get('senha').touched"
-              class="invalid-feedback">
+                class="invalid-feedback">
                 Senha deve ter entre 4 a 12 caracteres!
               </div>
             </div>
-          </div>  
+          </div>
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Descrição</label>
               <textarea [ngClass]="{'is-invalid': form.get('descricao').errors && form.get('descricao').touched}"
-              class="form-control" formControlName="descricao" placeholder="Descrição"></textarea>
-              <div *ngIf="form.get('descricao').hasError('required') && form.get('descricao').touched" 
-              class="invalid-feedback">
+                class="form-control" formControlName="descricao" placeholder="Descrição"></textarea>
+              <div *ngIf="form.get('descricao').hasError('required') && form.get('descricao').touched"
+                class="invalid-feedback">
                 Campo Obrigatório
               </div>
             </div>
-          </div> 
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex">
@@ -290,8 +277,8 @@
 
 <!-- Modal Inserir -->
 
-<div bsModal #templateInsert="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-sizes-name1">
+<div bsModal #templateInsert="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -301,46 +288,43 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
         <form [formGroup]="form">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Nome</label>
-              <input autofocus type="text" 
-              [ngClass]="{'is-invalid': form.get('nome').errors && form.get('nome').touched}"
-              class="form-control" formControlName="nome" placeholder="Nome">
-              <div *ngIf="form.get('nome').hasError('required') && form.get('nome').touched" 
-              class="invalid-feedback">
+              <input autofocus type="text"
+                [ngClass]="{'is-invalid': form.get('nome').errors && form.get('nome').touched}" class="form-control"
+                formControlName="nome" placeholder="Nome">
+              <div *ngIf="form.get('nome').hasError('required') && form.get('nome').touched" class="invalid-feedback">
                 Campo Obrigatório
               </div>
-              <div *ngIf="form.get('nome').hasError('minlength') && form.get('nome').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nome').hasError('minlength') && form.get('nome').touched" class="invalid-feedback">
                 Campo deve ter entre 2 a 130 caracteres
               </div>
-              <div *ngIf="form.get('nome').hasError('maxlength') && form.get('nome').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nome').hasError('maxlength') && form.get('nome').touched" class="invalid-feedback">
                 Campo deve ter entre 2 a 130 caracteres
               </div>
             </div>
             <div class="form-group col-md-6">
               <label>Nome Completo</label>
-              <input type="text" 
-              [ngClass]="{'is-invalid': form.get('nomeCompleto').errors && form.get('nomeCompleto').touched}"
-              class="form-control" formControlName="nomeCompleto" placeholder="Nome Completo">
-              <div *ngIf="form.get('nomeCompleto').hasError('required') && form.get('nomeCompleto').touched" 
-              class="invalid-feedback">
+              <input type="text"
+                [ngClass]="{'is-invalid': form.get('nomeCompleto').errors && form.get('nomeCompleto').touched}"
+                class="form-control" formControlName="nomeCompleto" placeholder="Nome Completo">
+              <div *ngIf="form.get('nomeCompleto').hasError('required') && form.get('nomeCompleto').touched"
+                class="invalid-feedback">
                 Campo Obrigatório
               </div>
-              <div *ngIf="form.get('nomeCompleto').hasError('minlength') && form.get('nomeCompleto').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nomeCompleto').hasError('minlength') && form.get('nomeCompleto').touched"
+                class="invalid-feedback">
                 Campo deve ter entre 6 a 170 caracteres
               </div>
-              <div *ngIf="form.get('nomeCompleto').hasError('maxlength') && form.get('nomeCompleto').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('nomeCompleto').hasError('maxlength') && form.get('nomeCompleto').touched"
+                class="invalid-feedback">
                 Campo deve ter entre 6 a 170 caracteres
               </div>
             </div>
-          </div>  
+          </div>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Data Solicitacao</label>
@@ -348,56 +332,52 @@
             </div>
             <div class="form-group col-md-8">
               <label>E-mail</label>
-              <input type="text" 
-              [ngClass]="{'is-invalid': form.get('email').errors && form.get('email').touched}"
-              class="form-control" formControlName="email" placeholder="E-mail">
-              <div *ngIf="form.get('email').hasError('required') && form.get('email').touched"
-              class="invalid-feedback">
+              <input type="text" [ngClass]="{'is-invalid': form.get('email').errors && form.get('email').touched}"
+                class="form-control" formControlName="email" placeholder="E-mail">
+              <div *ngIf="form.get('email').hasError('required') && form.get('email').touched" class="invalid-feedback">
                 Campo Obrigatório
               </div>
-              <div *ngIf="form.get('email').hasError('email') && form.get('email').touched" 
-              class="invalid-feedback">
+              <div *ngIf="form.get('email').hasError('email') && form.get('email').touched" class="invalid-feedback">
                 E-mail deve ser valido.
               </div>
             </div>
-          </div>  
+          </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Telefone</label>
               <input type="text" mask="(000) 00000-0000"
-              [ngClass]="{'is-invalid': form.get('telefone').errors && form.get('telefone').touched}"
-              class="form-control" formControlName="telefone" placeholder="(000) 00000-0000">
-              <div *ngIf="form.get('telefone').hasError('required') && form.get('telefone').touched" 
-              class="invalid-feedback">
+                [ngClass]="{'is-invalid': form.get('telefone').errors && form.get('telefone').touched}"
+                class="form-control" formControlName="telefone" placeholder="(000) 00000-0000">
+              <div *ngIf="form.get('telefone').hasError('required') && form.get('telefone').touched"
+                class="invalid-feedback">
                 Campo Obrigatório
               </div>
             </div>
             <div class="form-group col-md-6">
               <label>Senha</label>
-              <input type="password" 
-              [ngClass]="{'is-invalid': form.get('senha').errors && form.get('senha').touched}"
-              class="form-control" formControlName="senha" placeholder="Senha">
+              <input type="password" [ngClass]="{'is-invalid': form.get('senha').errors && form.get('senha').touched}"
+                class="form-control" formControlName="senha" placeholder="Senha">
               <div *ngIf="form.get('senha').hasError('minlength') && form.get('senha').touched"
-              class="invalid-feedback">
+                class="invalid-feedback">
                 Senha deve ter entre 4 a 12 caracteres!
               </div>
               <div *ngIf="form.get('senha').hasError('maxlength') && form.get('senha').touched"
-              class="invalid-feedback">
+                class="invalid-feedback">
                 Senha deve ter entre 4 a 12 caracteres!
               </div>
             </div>
-          </div>  
+          </div>
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Descrição</label>
               <textarea [ngClass]="{'is-invalid': form.get('descricao').errors && form.get('descricao').touched}"
-              class="form-control" formControlName="descricao" placeholder="Descrição"></textarea>
-              <div *ngIf="form.get('descricao').hasError('required') && form.get('descricao').touched" 
-              class="invalid-feedback">
+                class="form-control" formControlName="descricao" placeholder="Descrição"></textarea>
+              <div *ngIf="form.get('descricao').hasError('required') && form.get('descricao').touched"
+                class="invalid-feedback">
                 Campo Obrigatório
               </div>
             </div>
-          </div> 
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex">
@@ -413,7 +393,8 @@
 </div>
 
 <!-- Modal Confirmar Delete -->
-<div bsModal #confirmeDelete="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name2">
+<div bsModal #confirmeDelete="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name2">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
@@ -424,19 +405,18 @@
       </div>
       <div class="modal-body">
         Tem certeza que deseja excluir essa solicitação?
-        <p><strong>ID: &nbsp;</strong>{{request.id}}</p><br>
-        <p><strong>NOME COMPLETO: &nbsp;</strong><br>{{request.nomeCompleto}}</p><br>
-        <p><strong>E-MAIL: &nbsp;</strong><br>{{request.email}}</p><br>
+          <p><strong>ID: &nbsp;</strong><br>{{request.id}}</p><br>
+          <p><strong>NOME COMPLETO: &nbsp;</strong><br>{{request.nomeCompleto}}</p><br>
+          <p><strong>E-MAIL: &nbsp;</strong><br>{{request.email}}</p><br>
       </div>
       <div class="modal-footer">
         <button class="btn btn-danger" (click)="confirmeDelete. hide()">
           Não
         </button>
-        <button class="btn btn-success ml-auto" (click)="confirmeDeletar(confirmeDelete)" >
+        <button class="btn btn-success ml-auto" (click)="confirmeDeletar(confirmeDelete)">
           Sim
         </button>
       </div>
     </div>
   </div>
 </div>
-

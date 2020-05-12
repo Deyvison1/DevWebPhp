@@ -8,6 +8,7 @@ namespace DevWebPhp.WebAPI.Helpers
     {
         public AutoMapperProfiles() {
             CreateMap<Request, RequestDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
         }   
     }
 }

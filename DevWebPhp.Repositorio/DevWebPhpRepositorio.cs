@@ -65,5 +65,26 @@ namespace DevWebPhp.Repositorio
             */
         }
 
+        // User
+
+        public async Task<User[]> GetAllUsers()
+        {
+            return await _context.Users.OrderByDescending(x => x.Id).ToArrayAsync();
+        }
+
+        public async Task<User> GetUserById(int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<User[]> GetUserByNomeOrEmailOrTelefoneOrNivelUser(string buscar)
+        {
+            var result = _context.Users.Where(
+                x => x.Nome.ToLower().Contains(buscar.ToLower()) || x.NomeCompleto.ToLower().Contains(buscar.ToLower()) ||
+                x.Email.ToLower().Contains(buscar.ToLower()) || x.Telefone.ToLower().Contains(buscar.ToLower()) || 
+                x.NivelUsuario.ToString().ToLower().Contains(buscar.ToLower())
+            );
+            return await result.ToArrayAsync();
+        }
     }
 }

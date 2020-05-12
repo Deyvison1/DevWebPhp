@@ -15,6 +15,7 @@ namespace DevWebPhp.WebAPI.Dtos
         [Required(ErrorMessage = "{0} é obrigatório!!")]
         [EmailAddress]
         public string Email                    { get; set; }
+        public string Senha                    { get; set; }
         [Phone]
         [Required(ErrorMessage = "{0} é obrigatório!!")]
         public string Telefone                 { get; set; }

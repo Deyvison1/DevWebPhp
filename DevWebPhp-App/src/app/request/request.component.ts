@@ -17,6 +17,8 @@ export class RequestComponent implements OnInit {
   _filtroLista = '';
   requestFiltradas: Request[] = [];
   form: FormGroup;
+  metodoSalvar: string;
+  titulo = 'Request';
 
   get filtroLista(): string {
     return this._filtroLista;
@@ -57,11 +59,13 @@ export class RequestComponent implements OnInit {
   }
 
   inserir(inserir: any) {
+    this.metodoSalvar = 'post';
     this.form.reset();
     inserir.show();
   }
 
   editar(templateEdit: any, request: Request) {
+    this.metodoSalvar = 'put';
     templateEdit.show();
     this.request = request;
     this.form.patchValue(request);
@@ -87,7 +91,7 @@ export class RequestComponent implements OnInit {
 
   salvarAlteracao(template: any) {
     if (this.form.valid) {
-      if (!this.request.id) {
+      if (this.metodoSalvar === 'post') {
         this.request = Object.assign({}, this.form.value);
 
         this.requestService.post(this.request).subscribe(
