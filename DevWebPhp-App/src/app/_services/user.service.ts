@@ -14,8 +14,33 @@ export class UserService {
     private http: HttpClient
   ) { }
 
+  // Todos
+
   getAllUser(): Observable<User[]> {
     return this.http.get<User[]>(this.baseURL);
   }
 
+  // Buscar
+
+  GetAllRequestByNomeOrEmailOrTelefoneOrDescricao(buscar: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseURL}/GetBuscar/${buscar}`);
+  }
+
+  // Inserir
+
+  post(user: User) {
+    return this.http.post(this.baseURL, user);
+  }
+
+  // Editar
+
+  put(user: User) {
+    return this.http.put(`${this.baseURL}/${user.id}`, user);
+  }
+
+  // Deletar
+
+  deletar(id: number) {
+    return this.http.delete(`${this.baseURL}/${id}`);
+  }
 }

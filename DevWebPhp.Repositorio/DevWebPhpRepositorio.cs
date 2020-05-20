@@ -86,5 +86,17 @@ namespace DevWebPhp.Repositorio
             );
             return await result.ToArrayAsync();
         }
+
+        public async Task<User> CheckSenha(string email, string senha)
+        {
+            return await _context.Users.FirstOrDefaultAsync(
+                x => x.Email == email && x.Senha == senha
+            );
+        }
+
+        public async Task<User> FindNameByAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        }
     }
 }

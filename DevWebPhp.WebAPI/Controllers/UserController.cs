@@ -1,12 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DevWebPhp.Dominio;
 using DevWebPhp.Repositorio;
 using DevWebPhp.WebAPI.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Binder;
+using System.Security.Claims;
+using System;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace DevWebPhp.WebAPI.Controllers
 {
@@ -15,11 +23,13 @@ namespace DevWebPhp.WebAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IDevWebPhpRepositorio _repo;
+        private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        public UserController(IDevWebPhpRepositorio repo, IMapper mapper)
+        public UserController(IConfiguration config ,IDevWebPhpRepositorio repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
+            _config = config;
         }
         [HttpGet]
         public async Task<IActionResult> GetUser() {
@@ -56,7 +66,34 @@ namespace DevWebPhp.WebAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $" Erro na busca personalizada, User. CODE: {e.Message}");
             }
         }
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(UserLoginDto userDto) {
+            try {
+                var user = await _repo.FindNameByAsync(userDto.Email);
+
+                var result = await _repo.CheckSenha(userDto.Email, userDto.Senha);
+
+                if(result == null) {
+                    return Unauthorized();
+                } else {
+                
+                var userReturn = _mapper.Map<UserLoginDto>(result);
+                return Ok(
+                    new {
+                        token = GeradorDeToken(result).Result,
+                        user = userReturn
+                    }
+                );
+                }
+                return Unauthorized();
+                
+            } catch(System.Exception e) {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao Logar.\n CODE{e.Message}");
+            }
+        }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> AddUser(UserDto userDto) {
             try {
                 var user = _mapper.Map<User>(userDto);
@@ -103,5 +140,36 @@ namespace DevWebPhp.WebAPI.Controllers
             }
             return BadRequest();
         }
+        
+        private async Task<string> GeradorDeToken(User user) {
+            
+            var claims = new List<Claim> 
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Nome),
+                new Claim(ClaimTypes.Role, user.NivelUsuario.ToString())
+            };
+
+            var key = new SymmetricSecurityKey(
+                    Encoding.ASCII.GetBytes(_config
+                        .GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = creds
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+            
+        }
+        
     }
 }
