@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/User';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,8 @@ import { User } from '../_models/User';
 export class UserService {
 
   baseURL = 'http://localhost:5000/api/user';
+  jwtHelper = new JwtHelperService();
+  decodeToken: any;
 
   constructor(
     private http: HttpClient
@@ -42,5 +46,22 @@ export class UserService {
 
   deletar(id: number) {
     return this.http.delete(`${this.baseURL}/${id}`);
+  }
+
+  // Logar
+  login(model: any) {
+    return this.http.post(`${this.baseURL}/login`, model).pipe(
+      map((resp: any) => {
+        const user = resp;
+        if (user) {
+          localStorage.setItem('token', user.token);
+          this.decodeToken = this.jwtHelper.decodeToken(user.token);
+        }
+      })
+    );
+  }
+  logado() {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
   }
 }

@@ -20,6 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserComponent } from './user/user.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -33,7 +34,8 @@ import { TituloComponent } from './shared/titulo/titulo.component';
     RequestComponent,
     NavComponent,
     UserComponent,
-    TituloComponent
+    TituloComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
