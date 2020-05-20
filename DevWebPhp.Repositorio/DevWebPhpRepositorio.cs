@@ -94,9 +94,5 @@ namespace DevWebPhp.Repositorio
             );
         }
 
-        public async Task<User> FindNameByAsync(string email)
-        {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
-        }
     }
 }

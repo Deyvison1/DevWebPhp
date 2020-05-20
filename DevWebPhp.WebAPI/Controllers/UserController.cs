@@ -70,12 +70,11 @@ namespace DevWebPhp.WebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginDto userDto) {
             try {
-                var user = await _repo.FindNameByAsync(userDto.Email);
 
                 var result = await _repo.CheckSenha(userDto.Email, userDto.Senha);
 
                 if(result == null) {
-                    return Unauthorized();
+                    return Unauthorized("Usuario e/ou Senha Incorretos!!");
                 } else {
                 
                 var userReturn = _mapper.Map<UserLoginDto>(result);
@@ -86,7 +85,6 @@ namespace DevWebPhp.WebAPI.Controllers
                     }
                 );
                 }
-                return Unauthorized();
                 
             } catch(System.Exception e) {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao Logar.\n CODE{e.Message}");

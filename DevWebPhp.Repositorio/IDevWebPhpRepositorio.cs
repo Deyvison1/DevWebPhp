@@ -12,7 +12,6 @@ namespace DevWebPhp.Repositorio
          Task<bool> SaveChanges();
          // Login
          Task<User> CheckSenha(string email, string senha);
-         Task<User> FindNameByAsync(string name);
          // Requests
          // GetAll => Todas solicitações
          Task<Request[]> GetAllRequests();
