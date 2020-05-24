@@ -22,6 +22,7 @@ import { UserComponent } from './user/user.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { KeyComponent } from './key/key.component';
 
 
 
@@ -37,6 +38,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     UserComponent,
     TituloComponent,
     LoginComponent,
+    KeyComponent,
   ],
   imports: [
     BrowserModule,

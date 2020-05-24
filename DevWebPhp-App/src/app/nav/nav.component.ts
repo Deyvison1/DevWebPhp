@@ -19,6 +19,14 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
+  nomeLogado() {
+    return sessionStorage.getItem('nome');
+  }
+
+  nivelUsuario() {
+    return sessionStorage.getItem('nivelUsuario');
+  }
+
   logado() {
     return this.userService.logado();
   }

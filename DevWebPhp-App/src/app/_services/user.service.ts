@@ -56,6 +56,8 @@ export class UserService {
         if (user) {
           localStorage.setItem('token', user.token);
           this.decodeToken = this.jwtHelper.decodeToken(user.token);
+          sessionStorage.setItem('nome', this.decodeToken.unique_name);
+          sessionStorage.setItem('nivelUsuario', this.decodeToken.role);
         }
       })
     );

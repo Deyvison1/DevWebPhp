@@ -7,7 +7,7 @@
           class="fas fa-search"></i>
       </div>
     </div>
-    <div>
+    <div *ngIf="nivelUsuario() == '1'">
       <button class="btn btn-outline-success" (click)="inserir(template)">
         <i class="fa fa-plus-circle"></i>&nbsp; Novo Usuario
       </button>
@@ -21,7 +21,7 @@
           <th>Nome Completo</th>
           <th>E-mail</th>
           <th>Nivel Usuario</th>
-          <th>Ações</th>
+          <th *ngIf="nivelUsuario() == '1'">Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -29,8 +29,13 @@
           <td>{{user.nome}}</td>
           <td>{{user.nomeCompleto}}</td>
           <td>{{user.email}}</td>
-          <td>{{user.nivelUsuario}}</td>
-          <td>
+          <td class="text-center" *ngIf="user.nivelUsuario == 1">
+            <button class="btn btn-success"><i class="fas fa-crown"></i>&nbsp; Administrador</button>
+          </td>
+          <td class="text-center" *ngIf="user.nivelUsuario == 2">
+            <button class="btn btn-warning"><i class="fas fa-user"></i>&nbsp; Usuario</button>
+          </td>
+          <td *ngIf="nivelUsuario() == '1'">
             <div class="btn-group">
               <button class="btn btn-secondary btn-sm" (click)="editar(template, user)" tooltip="Editar">
                 <i class="fa fa-edit"></i>&nbsp; Editar</button>

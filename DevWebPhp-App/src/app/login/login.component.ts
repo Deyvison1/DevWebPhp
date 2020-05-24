@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public router: Router,
     private userService: UserService,
-    private toastr: ToastrService 
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login(){
+  login() {
     this.userService.login(this.model).subscribe(
       (data) => {
         this.router.navigate(['/user']);

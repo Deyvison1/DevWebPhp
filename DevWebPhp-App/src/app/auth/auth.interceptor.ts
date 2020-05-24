@@ -6,7 +6,7 @@ import { tap } from 'rxjs/internal/operators/tap';
 
 @Injectable({providedIn: 'root'})
 export class AuthInterceptor implements HttpInterceptor {
-    
+
     constructor(
         private router: Router
     ) {}

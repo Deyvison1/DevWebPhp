@@ -13,16 +13,20 @@
         <a class="nav-link" routerLink="user">
           <i class="fas fa-user"></i>&nbsp; User</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
+      <li class="nav-item" routerLinkActive="active" *ngIf="nivelUsuario() == '1'">
         <a class="nav-link" routerLink="request">
           <i class="fas fa-tasks"></i>&nbsp; Request</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" *ngIf="nivelUsuario() == '2'">
+        <a class="nav-link" routerLink="key">
+          <i class="fas fa-key"></i>&nbsp; Chave</a>
       </li>
       <div *ngIf="logado()">
         <ul class="navbar-nav">
           <li class="nav-item dropdown" dropdown>
             <a dropdownToggle class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
-              Vinícius
+              {{nomeLogado()}}
             </a>
             <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="#">

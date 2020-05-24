@@ -51,6 +51,10 @@ export class UserComponent implements OnInit {
     return [];
   }
 
+  nivelUsuario() {
+    return sessionStorage.getItem('nivelUsuario');
+  }
+
   detalhes(detalhes: any, _user: User) {
     detalhes.show();
     this.form.patchValue(_user);
