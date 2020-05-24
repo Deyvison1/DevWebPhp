@@ -6,6 +6,7 @@ using AutoMapper;
 using DevWebPhp.Dominio;
 using DevWebPhp.Repositorio;
 using DevWebPhp.WebAPI.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,9 +60,11 @@ namespace DevWebPhp.WebAPI.Controllers
             }
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> AddRequest(RequestDto requestDto) {
             try {
                 var request = _mapper.Map<Request>(requestDto);
+                request.Situacao = 2;
                 _repo.Add(request);
                 if(await _repo.SaveChanges()) {
                     return Created($"/api/request/{request.Id}", request);

@@ -1,6 +1,7 @@
 <app-titulo class="text-center" [titulo]="titulo"></app-titulo>
 <br><br><br>
-<body class="text-center" data-gr-c-s-loaded="true">
+<body data-gr-c-s-loaded="true">
+  <div class="text-center">
   <form class="form-signin" #loginform="ngForm" (ngSubmit)="login()">
     <p style="display: none;">
       <img class="mb-4" src="" alt="" width="72" height="72" />
@@ -40,7 +41,124 @@
       <i class="fas fa-sign-in-alt"></i>
       Entrar
     </button>
-    <p class="mt-5 mb-3 text-muted">Não tem acesso? Solicite acesso abaixo</p>
-    <button class="btn btn-lg btn-link btn-block" (click)="router.navigate(['/newrequest'])">Quero ter acesso</button>
   </form>
+  <p class="mt-5 mb-3 text-muted">Não tem acesso? Solicite acesso abaixo</p>
+  <button class="btn btn-lg btn-link btn-block" (click)="solicitarAcesso(requestAcesso)">Quero ter acesso</button>
+</div>
+<!-- Modal Solicitação de Acesso -->
+
+<div bsModal #requestAcesso="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+aria-labelledby="dialog-sizes-name1">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="dialog-sizes-name1" class="modal-title pull-left">Solicitação de Acesso</h4>
+      <button type="button" class="close pull-right" (click)="requestAcesso.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form [formGroup]="form">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Nome</label>
+            <input autofocus type="text"
+              [ngClass]="{'is-invalid': form.get('nome').errors && form.get('nome').touched}" class="form-control"
+              formControlName="nome" placeholder="Nome">
+            <div *ngIf="form.get('nome').hasError('required') && form.get('nome').touched" class="invalid-feedback">
+              Campo Obrigatório
+            </div>
+            <div *ngIf="form.get('nome').hasError('minlength') && form.get('nome').touched" class="invalid-feedback">
+              Campo deve ter entre 2 a 130 caracteres
+            </div>
+            <div *ngIf="form.get('nome').hasError('maxlength') && form.get('nome').touched" class="invalid-feedback">
+              Campo deve ter entre 2 a 130 caracteres
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Nome Completo</label>
+            <input type="text"
+              [ngClass]="{'is-invalid': form.get('nomeCompleto').errors && form.get('nomeCompleto').touched}"
+              class="form-control" formControlName="nomeCompleto" placeholder="Nome Completo">
+            <div *ngIf="form.get('nomeCompleto').hasError('required') && form.get('nomeCompleto').touched"
+              class="invalid-feedback">
+              Campo Obrigatório
+            </div>
+            <div *ngIf="form.get('nomeCompleto').hasError('minlength') && form.get('nomeCompleto').touched"
+              class="invalid-feedback">
+              Campo deve ter entre 6 a 170 caracteres
+            </div>
+            <div *ngIf="form.get('nomeCompleto').hasError('maxlength') && form.get('nomeCompleto').touched"
+              class="invalid-feedback">
+              Campo deve ter entre 6 a 170 caracteres
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label>Data Solicitacao</label>
+            <input type="date" class="form-control" formControlName="dataSolicitacao">
+          </div>
+          <div class="form-group col-md-8">
+            <label>E-mail</label>
+            <input type="text" [ngClass]="{'is-invalid': form.get('email').errors && form.get('email').touched}"
+              class="form-control" formControlName="email" placeholder="E-mail">
+            <div *ngIf="form.get('email').hasError('required') && form.get('email').touched" class="invalid-feedback">
+              Campo Obrigatório
+            </div>
+            <div *ngIf="form.get('email').hasError('email') && form.get('email').touched" class="invalid-feedback">
+              E-mail deve ser valido.
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Telefone</label>
+            <input type="text" mask="(000) 00000-0000"
+              [ngClass]="{'is-invalid': form.get('telefone').errors && form.get('telefone').touched}"
+              class="form-control" formControlName="telefone" placeholder="(000) 00000-0000">
+            <div *ngIf="form.get('telefone').hasError('required') && form.get('telefone').touched"
+              class="invalid-feedback">
+              Campo Obrigatório
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Senha</label>
+            <input type="password" [ngClass]="{'is-invalid': form.get('senha').errors && form.get('senha').touched}"
+              class="form-control" formControlName="senha" placeholder="Senha">
+            <div *ngIf="form.get('senha').hasError('minlength') && form.get('senha').touched"
+              class="invalid-feedback">
+              Senha deve ter entre 4 a 12 caracteres!
+            </div>
+            <div *ngIf="form.get('senha').hasError('maxlength') && form.get('senha').touched"
+              class="invalid-feedback">
+              Senha deve ter entre 4 a 12 caracteres!
+            </div>
+          </div>
+      </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Descrição</label>
+            <textarea [ngClass]="{'is-invalid': form.get('descricao').errors && form.get('descricao').touched}"
+              class="form-control" formControlName="descricao" placeholder="Descrição"></textarea>
+            <div *ngIf="form.get('descricao').hasError('required') && form.get('descricao').touched"
+              class="invalid-feedback">
+              Campo Obrigatório
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer d-flex">
+      <button class="btn btn-secondary" (click)="requestAcesso.hide()">
+        Fechar
+      </button>
+      <button class="btn btn-primary ml-auto" [disabled]="!form.valid" (click)="salvarAlteracao(requestAcesso)">
+        Salvar Alterações
+      </button>
+    </div>
+  </div>
+</div>
+</div>
 </body>

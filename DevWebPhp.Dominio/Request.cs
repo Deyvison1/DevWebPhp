@@ -11,10 +11,10 @@ namespace DevWebPhp.Dominio
         public string Telefone                 { get; set; }
         public string Senha                    { get; set; }
         public string Descricao                { get; set; }
-
+        public int Situacao                    { get; set; }
         public Request() {  }
         public Request(int id, string nome, string nomeCompleto, string email, DateTime dataSolicitacao,
-            string telefone, string senha, string descricao
+            string telefone, string senha, string descricao, int situacao
         )
         {
             Id = id;
@@ -24,7 +24,8 @@ namespace DevWebPhp.Dominio
             DataSolicitacao = dataSolicitacao;
             Telefone = telefone;
             Senha = senha;
-            Descricao = descricao;            
+            Descricao = descricao;
+            Situacao = situacao;            
         }
         
     }

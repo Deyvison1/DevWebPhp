@@ -22,6 +22,7 @@ namespace DevWebPhp.WebAPI.Dtos
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataSolicitacao        { get; set; }
         public string Descricao                { get; set; }
+        public int Situacao                     { get; set; }
 
     }
 }

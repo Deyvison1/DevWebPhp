@@ -3,6 +3,8 @@ import { RequestService } from '../_services/request.service';
 import { Request } from '../_models/Request';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../_models/User';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-request',
@@ -19,6 +21,7 @@ export class RequestComponent implements OnInit {
   form: FormGroup;
   metodoSalvar: string;
   titulo = 'Request';
+  user: User = new User();
 
   get filtroLista(): string {
     return this._filtroLista;
@@ -31,7 +34,8 @@ export class RequestComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userService: UserService
   ) { }
 
 
@@ -50,6 +54,39 @@ export class RequestComponent implements OnInit {
       }
     );
     return [];
+  }
+  confirmarAutorizacao(templateAutorizacao: any, requestUser: User) {
+    templateAutorizacao.show();
+    this.user = requestUser;
+    this.user.nivelUsuario = 2;
+    this.form.patchValue(requestUser);
+
+    console.log(`Nivel: ${this.user.nivelUsuario}, Nome Completo: ${this.user.nomeCompleto}`);
+  }
+  autorizarUsuario(templateAutorizar: any) {
+    if (this.form.valid) {
+      this.user = Object.assign({ }, this.user);
+
+      this.userService.post(this.user).subscribe(
+        (autorizarUser: User) => {
+
+          this.request = Object.assign({ id: this.user.id}, this.form.value);
+          this.request.situacao = 1;
+          this.requestService.put(this.request).subscribe(
+            (data) => {
+              templateAutorizar.hide();
+              this.getRequest();
+              this.toastr.success('Usuario Autorizado com Sucesso!');
+            }, error => {
+              this.toastr.error(`Erro CODE: ${error}`);
+            }
+          );
+
+        }, error => {
+          this.toastr.error(`Erro ao Autorizar Usuario. CODE: ${error}`);
+        }
+      );
+    }
   }
 
   detalhes(detalhes: any, request: Request) {
@@ -129,7 +166,8 @@ export class RequestComponent implements OnInit {
       dataSolicitacao: [''],
       telefone: ['', Validators.required],
       senha: ['', [Validators.minLength(4), Validators.maxLength(12)]],
-      descricao: ['', Validators.required]
+      descricao: ['', Validators.required],
+      situacao: ['', [Validators.max(2), Validators.min(1)]]
     });
   }
 

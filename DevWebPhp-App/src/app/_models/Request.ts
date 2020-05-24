@@ -7,4 +7,5 @@ export class Request  {
         telefone: string;
         senha: string;
         descricao: string;
+        situacao: number;
 }

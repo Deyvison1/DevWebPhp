@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KeyComponent implements OnInit {
 
+  titulo = 'Chave';
   constructor() { }
 
   ngOnInit() {
   }
+
+  key(template: any) {
+    template.show();
+  }
+
 
 }

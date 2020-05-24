@@ -16,10 +16,11 @@ namespace DevWebPhp.Repositorio.Migrations
                     Nome = table.Column<string>(nullable: true),
                     NomeCompleto = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    DataSolicitacao = table.Column<DateTime>(nullable: false),
+                    DataSolicitacao = table.Column<DateTime>(nullable: true),
                     Telefone = table.Column<string>(nullable: true),
                     Senha = table.Column<string>(nullable: true),
-                    Descricao = table.Column<string>(nullable: true)
+                    Descricao = table.Column<string>(nullable: true),
+                    Situacao = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

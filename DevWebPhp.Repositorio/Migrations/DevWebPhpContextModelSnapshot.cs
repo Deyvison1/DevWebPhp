@@ -21,7 +21,7 @@ namespace DevWebPhp.Repositorio.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DataSolicitacao");
+                    b.Property<DateTime?>("DataSolicitacao");
 
                     b.Property<string>("Descricao");
 
@@ -32,6 +32,8 @@ namespace DevWebPhp.Repositorio.Migrations
                     b.Property<string>("NomeCompleto");
 
                     b.Property<string>("Senha");
+
+                    b.Property<int>("Situacao");
 
                     b.Property<string>("Telefone");
 

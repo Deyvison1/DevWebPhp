@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevWebPhp.Repositorio.Migrations
 {
     [DbContext(typeof(DevWebPhpContext))]
-    [Migration("20200430081627_init")]
+    [Migration("20200524210021_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace DevWebPhp.Repositorio.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DataSolicitacao");
+                    b.Property<DateTime?>("DataSolicitacao");
 
                     b.Property<string>("Descricao");
 
@@ -34,6 +34,8 @@ namespace DevWebPhp.Repositorio.Migrations
                     b.Property<string>("NomeCompleto");
 
                     b.Property<string>("Senha");
+
+                    b.Property<int>("Situacao");
 
                     b.Property<string>("Telefone");
 
