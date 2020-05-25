@@ -130,7 +130,7 @@ export class RequestComponent implements OnInit {
     if (this.form.valid) {
       if (this.metodoSalvar === 'post') {
         this.request = Object.assign({}, this.form.value);
-
+        this.request.situacao = 2;
         this.requestService.post(this.request).subscribe(
           (newRequest: Request) => {
             console.log(newRequest);

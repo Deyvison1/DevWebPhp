@@ -30,10 +30,14 @@
         <td>{{request.telefone | mask: '(000) 00000-0000'}}</td>
         <td>
           <div *ngIf="request.situacao == 1">
-            <button class="btn btn-success">Concluida</button>
+            <button class="btn btn-success">
+              <i class="fas fa-check"></i>&nbsp; Concluida
+            </button>
           </div>
           <div *ngIf="request.situacao == 2">
-            <button class="btn btn-danger">Pendente</button>
+            <button class="btn btn-danger">
+              <i class="fas fa-clock"></i>&nbsp; Pendente
+            </button>
           </div>
         </td>
         <td>
@@ -439,7 +443,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Editar</h4>
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Autorizar</h4>
         <button type="button" class="close pull-right" (click)="templateAutorizar.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

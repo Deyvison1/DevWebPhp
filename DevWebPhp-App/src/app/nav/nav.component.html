@@ -26,15 +26,15 @@
           <li class="nav-item dropdown" dropdown>
             <a dropdownToggle class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
-              {{nomeLogado()}}
+              {{nomeLogado() | titlecase}}
             </a>
             <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">
-                Perfil
+              <a class="dropdown-item" (click)="perfil(userDetails)" style="cursor: pointer;">
+                <i class="fas fa-user"></i>&nbsp; Perfil
               </a>
               <div role="separator" class="divider"></div>
               <a class="dropdown-item" (click)="sair()" style="cursor: pointer;">
-                Sair
+                <i class="fas fa-sign-out-alt"></i>&nbsp; Sair
               </a>
             </div>
           </li>
@@ -46,3 +46,32 @@
     </ul>
   </div>
 </nav>
+
+<!-- Modal Confirmar Delete -->
+<div bsModal #userDetails="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name2">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name2" class="modal-title pull-left">Perfil</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="userDetails.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <strong>Nome: </strong><p>{{nomeLogado() | titlecase}}</p>
+        <strong>Nivel Usuario: </strong><p *ngIf="nivelUsuario() === '1'">
+          <button class="btn btn-success"><i class="fas fa-crown"></i>&nbsp; Administrador</button>
+        </p>
+        <p *ngIf="nivelUsuario() === '2'">
+          <button class="btn btn-info"><i class="fas fa-user"></i>&nbsp; Usuario</button>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-block btn-secondary" (click)="userDetails. hide()">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

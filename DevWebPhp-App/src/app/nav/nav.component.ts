@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../_services/user.service';
 import { Router } from '@angular/router';
+import { User } from '../_models/User';
 
 @Component({
   selector: 'app-nav',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+
 
   constructor(
     private toastr: ToastrService,
@@ -33,6 +35,9 @@ export class NavComponent implements OnInit {
   sair() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
+  }
+  perfil(userDetails: any) {
+    userDetails.show();
   }
 
 }
